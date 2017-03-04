@@ -1,0 +1,18 @@
+FROM golang:alpine
+MAINTAINER Samuel "dgellow" El-Borai <samuel.elborai@gmail.com>
+
+ENV BUILD_COMMAND "hugo"
+ENV BUILD_DIR "public"
+
+WORKDIR /build
+RUN apk update &&\
+    apk add ca-certificates &&\
+    update-ca-certificates &&\
+    apk add wget git &&\
+    go get -u github.com/spf13/hugo &&\
+    rm -r $GOPATH/src &&\
+    wget -q https://dl.minio.io/client/mc/release/linux-amd64/mc &&\
+    chmod +x mc
+ADD ./scripts/static_build_push.sh /build/build_push.sh
+
+ENTRYPOINT ["sh", "/build/build_push.sh"]
