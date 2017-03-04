@@ -1,4 +1,7 @@
-# Builder images
+# GitPages container images
 
-- [gitpages/jekyll](https://hub.docker.com/r/gitpages/jekyll)
-- [gitpages/hugo](https://hub.docker.com/r/gitpages/hugo)
+## Builder images
+
+- Static stack: [gitpages/static:v1](https://hub.docker.com/r/gitpages/static)
+- Jekyll stack [gitpages/jekyll:v1](https://hub.docker.com/r/gitpages/jekyll)
+- Hugo stack: [gitpages/hugo:v1](https://hub.docker.com/r/gitpages/hugo)

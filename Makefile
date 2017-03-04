@@ -3,10 +3,29 @@ owner?=gitpages
 #	.—————.
 #	| All |
 #	'—————'
-release-all: release-jekyll release-hugo
-build-all: build-jekyll build-hugo
-push-all: push-jekyll push-hugo
-clean-all: clean-jekyll clean-hugo
+release-all: release-static release-jekyll release-hugo
+build-all: build-static build-jekyll build-hugo
+push-all: push-static push-jekyll push-hugo
+clean-all: clean-static clean-jekyll clean-hugo
+
+#	.———————————————————————.
+#	| Gitpages stack static |
+#	'———————————————————————'
+file_static?=Dockerfile_static
+image_static?=static
+version_static?=v1
+full_image_static?=${owner}/${image_static}:${version_static}
+
+release-static: clean-static build-static push-static clean-static
+
+build-static:
+	docker build --pull -f ${file_static} -t ${full_image_static} .
+
+push-static:
+	docker push ${full_image_static}
+
+clean-static:
+	docker rmi -f ${owner}/${image_static}:${version_static} | true
 
 #	.———————————————————————.
 #	| Gitpages stack jekyll |
